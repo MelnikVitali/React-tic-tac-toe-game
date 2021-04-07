@@ -8,10 +8,14 @@ const useStyles = makeStyles(theme => ({
         minHeight: '50px',
         backgroundColor: 'transparent !important',
         fontSize: '24px !important',
-        color: '#000 !important',
+        color: `${theme.blackColor} !important`,
         fontWeight: '700 !important',
         border: `${theme.borderSquare} !important`,
         borderRadius: '0 !important'
+    },
+    winningSquare:{
+        color: `${theme.palette.secondary.main} !important`,
+        backgroundColor: `${theme.backgroundGray} !important` ,
     }
 }));
 
