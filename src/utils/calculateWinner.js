@@ -19,7 +19,10 @@ export const calculateWinner = (squares) => {
             squares[a] === squares[b] &&
             squares[a] === squares[c]
         ) {
-            return squares[a];
+            return {
+                winner:squares[a],
+                winningSquares: line,
+            };
 
         }
     }

@@ -32,6 +32,7 @@ const theme = createMuiTheme({
     colorWhite: '#ffffff',
     blackColor: '#000000',
     backgroundWhite: '#ffffff',
+    backgroundGray: '#e0e0e0',
     borderSquare: '1px solid gray',
     borderGameName: '2px dashed',
     colorGameName: 'darkmagenta',

@@ -29,6 +29,9 @@ const useStyles = makeStyles(theme => ({
         fontWeight: '600 !important',
         margin: `${theme.spacing(2)} !important`,
     },
+    btnPiece:{
+      color: `${theme.palette.secondary.main} !important`
+    },
     btnBack: {
         width: pxToRem(170),
         fontWeight: '700 !important',

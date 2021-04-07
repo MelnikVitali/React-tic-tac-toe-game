@@ -4,12 +4,16 @@ import { Button } from '@material-ui/core';
 
 import useStyles from './styles';
 
-const Square = ({value, clickCell}) => {
+const Square = ({value, clickCell, winningSquare}) => {
     const classes = useStyles();
+
     return (
         <Button
             variant='contained'
-            className={classes.square}
+            className={[
+                classes.square,
+                winningSquare ? classes.winningSquare : null
+            ].join(' ')}
             onClick={clickCell}
         >
             {value}

@@ -4,7 +4,7 @@ import { Paper } from '@material-ui/core';
 
 import useStyles from './styles';
 
-const Board = ({squares, clickCell}) => {
+const Board = ({squares, clickCell, winner}) => {
     const classes =useStyles();
 
     return (
@@ -15,6 +15,7 @@ const Board = ({squares, clickCell}) => {
                         <Square
                             key={i}
                             value={square}
+                            winningSquare ={(Boolean(winner && winner.includes(i)))}
                             clickCell={() => clickCell(i)}
                         />
                     ))

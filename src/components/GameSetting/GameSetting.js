@@ -37,7 +37,7 @@ const GameSetting = ({mode, setPlayer, setPiece, resetGame}) => {
                         variant="contained"
                         color='inherit'
                         size="large"
-                        className={classes.btn}
+                        className={[classes.btn, classes.btnPiece].join(' ')}
                         onClick={() => setPiece('X')}
                     >
                         X
@@ -46,7 +46,7 @@ const GameSetting = ({mode, setPlayer, setPiece, resetGame}) => {
                     <Button
                         variant="contained"
                         color='inherit'
-                        className={classes.btn}
+                        className={[classes.btn, classes.btnPiece].join(' ')}
                         size="large"
                         onClick={() => setPiece('0')}
                     >

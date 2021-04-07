@@ -7,7 +7,8 @@ const useStyles = makeStyles(theme => ({
         display:'flex',
         flexDirection: 'column',
         alignItems:'center',
-        textAlign: 'center',
+        textAlign:'center',
+        justifyContent: 'center'
     },
     gameName: {
         border: theme.borderGameName,
@@ -20,6 +21,17 @@ const useStyles = makeStyles(theme => ({
             borderStyle: 'solid'
         }
     },
+    historyContainer:{
+        display:'flex',
+        flexDirection: 'column',
+        alignItems:'center',
+        justifyContent: 'center',
+        color: theme.palette.primary.main,
+        textAlign:'left'
+    },
+    historyLinkActive:{
+        fontWeight:'bold'
+    }
 
 }));
 

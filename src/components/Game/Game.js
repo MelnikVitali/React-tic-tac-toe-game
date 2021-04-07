@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useReducer } from 'react';
 
 import { calculateWinner } from '../../utils/calculateWinner';
@@ -6,10 +7,9 @@ import Board from '../Board';
 import Controllers from '../Controllers';
 import Info from '../Info';
 
-import './Game.css';
+import GameSetting from '../GameSetting';
 
 import useStyles from './styles';
-import GameSetting from '../GameSetting';
 
 const SET_PLAYER = 'SET_PLAYER';
 const SET_PIECE = 'SET_PIECE';
@@ -23,6 +23,7 @@ const NEW_TURN = 'NEW_TURN';
 const initialState = {
     history: [{
         squares: Array(9).fill(null),
+        clickedSquare: [0, 0]
     }],
     score: {X: 0, O: 0},
     gameMode: '',
@@ -55,12 +56,15 @@ const gameReducer = (state, action) => {
             const newScore = {...state.score};
 
             if (winner) {
-                newScore[winner] = newScore[winner] + 1;
+                newScore[winner.winner] = newScore[winner.winner] + 1;
             }
 
             return {
                 ...state,
-                history: [...state.history.slice(0, state.stepNumber + 1), action.newBoardState],
+                history: [
+                    ...state.history.slice(0, state.stepNumber + 1),
+                    action.newBoardState
+                ],
                 stepNumber: state.stepNumber + 1,
                 xIsNext: !state.xIsNext,
                 score: newScore,
@@ -123,29 +127,49 @@ const Game = () => {
         newSquares[index] = xIsNext ? 'X' : 'O';
 
         // Update state
-        dispatch({type: SET_CELL, newBoardState: {squares: newSquares}});
+        dispatch({
+            type: SET_CELL,
+            newBoardState: {
+                squares: newSquares,
+                clickedSquare: [Math.floor((index % 3) + 1), Math.floor((index / 3) + 1)]
+            }
+        });
     };
 
     const jumpTo = (step) => {
         dispatch({type: JUMP_TO, step});
     };
 
+    const resetGame = () => dispatch({type: 'RESET_GAME'});
+    const newTurn = () => dispatch({type: 'NEW_TURN'});
+
     const moves = history.map((step, move) => {
+        const active = {
+            fontWeight: 'bold'
+        };
+
+        const inactive = {
+            fontWeight: 'normal'
+        };
+        const clickedSquare = step.clickedSquare;
         const desc = move ?
-            `Go to move #${move}` :
-            'Go to game start';
+            `Move #  ${move} - (${clickedSquare[0]},${clickedSquare[1]})` :
+            `Game start`;
         return (
             <li key={move} >
-                <button onClick={() => jumpTo(move)} >{desc}</button >
+                <a
+                    href="#"
+                    className={classes.historyLinkActive}
+                    style={state.stepNumber === move ? active : inactive}
+                    onClick={() => jumpTo(move)} >
+                    {desc}
+                </a >
             </li >
         );
     });
 
-    const resetGame = () => dispatch({type: 'RESET_GAME'});
-    const newTurn = () => dispatch({type: 'NEW_TURN'});
-
     let status;
-    if (winner) status = `Winner: ${winner}`;
+    if (winner) status = `Winner: ${winner.winner}`;
     else if (currentBoard.squares.every(Boolean)) status = 'Even';
     else status = `Next player: ${xIsNext ? 'X' : 'O'}`;
 
@@ -155,9 +179,13 @@ const Game = () => {
             {(gameMode !== '' && gamePiece !== '') ?
                 <>
                     <Info score={score} status={status} />
-                    <Board squares={currentBoard.squares} clickCell={clickCell} />
+                    <Board
+                        squares={currentBoard.squares}
+                        winner={winner && winner.winningSquares}
+                        clickCell={clickCell}
+                    />
                     <Controllers controllers={{resetGame, newTurn}} />
-                    <div >
+                    <div className={classes.historyContainer}>
                         <h3 >History</h3 >
                         <ol >{moves}</ol >
                     </div >
