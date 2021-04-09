@@ -3,7 +3,8 @@ import { pxToRem } from '../../utils/pxToRem';
 
 const useStyles = makeStyles(theme => ({
     result: {
-        width: '50%',
+        minWidth:pxToRem(380),
+        maxWidth:pxToRem(600),
         display: 'flex',
         justifyContent: 'space-evenly',
         alignItems: 'center',
@@ -26,12 +27,10 @@ const useStyles = makeStyles(theme => ({
     maxWin: {
         fontSize: pxToRem(32)
     },
-
     statusResult:{
         fontWeight: 600,
         color:theme.palette.primary.main
     }
-
 }));
 
 export default useStyles;

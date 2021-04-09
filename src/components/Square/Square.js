@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { memo } from 'react';
 
 import { Button } from '@material-ui/core';
 
 import useStyles from './styles';
 
-const Square = ({value, clickCell, winningSquare}) => {
+const Square = memo(({value, clickCell, winningSquare}) => {
     const classes = useStyles();
 
     return (
@@ -19,6 +19,6 @@ const Square = ({value, clickCell, winningSquare}) => {
             {value}
         </Button >
     );
-};
+});
 
 export default Square;

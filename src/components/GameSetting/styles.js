@@ -3,20 +3,9 @@ import { pxToRem } from '../../utils/pxToRem';
 const {makeStyles} = require('@material-ui/core/styles');
 
 const useStyles = makeStyles(theme => ({
-    gameSettingContainer: {
-        width: '50%',
-        height: '100%',
-        overflow: 'hidden',
-        paddingTop: `${pxToRem(30)}`,
-        paddingBottom: `${pxToRem(10)}`,
-        margin: pxToRem(20),
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
     title: {
-        paddingBottom: theme.spacing(4)
+        color: theme.palette.primary.main,
+        textAlign: 'center',
     },
     btnGroup: {
         minWidth: pxToRem(200),
@@ -27,19 +16,17 @@ const useStyles = makeStyles(theme => ({
     },
     btn: {
         fontWeight: '600 !important',
-        margin: `${theme.spacing(2)} !important`,
+        marginBottom: `${pxToRem(3)}`,
     },
-    btnPiece:{
-      color: `${theme.palette.secondary.main} !important`
+    btnPiece: {
+        padding: `${pxToRem(5)} ${pxToRem(35)}`,
+        color: `${theme.palette.secondary.main} `,
     },
     btnBack: {
-        width: pxToRem(170),
-        fontWeight: '700 !important',
-        fontSize: pxToRem(30),
+        fontWeight: '900',
     },
-    or:{
-        margin:`0 ${pxToRem(12)}`,
-        color:theme.palette.primary.main,
+    or: {
+        color: theme.palette.primary.main,
         fontWeight: 600
     }
 }));

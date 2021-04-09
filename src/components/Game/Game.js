@@ -1,200 +1,137 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useReducer } from 'react';
 
-import { calculateWinner } from '../../utils/calculateWinner';
+import { Box, Link } from '@material-ui/core';
 
 import Board from '../Board';
-import Controllers from '../Controllers';
-import Info from '../Info';
 
+import Controllers from '../Controllers';
 import GameSetting from '../GameSetting';
+import Info from '../Info';
+import History from '../History';
+
+import { gameReducer, initialState, types } from '../../reducers/gameReducer';
+
+import { calculateWinner } from '../../utils/calculateWinner';
+import { findBestSquare } from '../../utils/findBestSquare';
 
 import useStyles from './styles';
 
-const SET_PLAYER = 'SET_PLAYER';
-const SET_PIECE = 'SET_PIECE';
-const SET_SCORE = 'SET_SCORE';
-const SET_CELL = 'SET_CELL';
-const JUMP_TO = 'JUMP_TO';
-const RESET_GAME = 'RESET_GAME';
-const NEW_TURN = 'NEW_TURN';
-
-
-const initialState = {
-    history: [{
-        squares: Array(9).fill(null),
-        clickedSquare: [0, 0]
-    }],
-    score: {X: 0, O: 0},
-    gameMode: '',
-    gamePiece: '',
-    stepNumber: 0,
-    // turn: 'X',
-    // p1IsNext: true,
-    // currentPlayer: '',
-    xIsNext: true,
-};
-
-const gameReducer = (state, action) => {
-    switch (action.type) {
-        case SET_PLAYER:
-            return {
-                ...state,
-                gameMode: action.mode,
-            };
-
-        case SET_PIECE:
-            return {
-                ...state,
-                xIsNext: action.piece === 'X',
-                // currentPlayer: state.p1IsNext ? action.piece === 'X' ? 'O' : 'X' : action.piece,
-                gamePiece: action.piece
-            };
-
-        case SET_CELL:
-            const winner = calculateWinner(action.newBoardState.squares);
-            const newScore = {...state.score};
-
-            if (winner) {
-                newScore[winner.winner] = newScore[winner.winner] + 1;
-            }
-
-            return {
-                ...state,
-                history: [
-                    ...state.history.slice(0, state.stepNumber + 1),
-                    action.newBoardState
-                ],
-                stepNumber: state.stepNumber + 1,
-                xIsNext: !state.xIsNext,
-                score: newScore,
-            };
-
-        case JUMP_TO:
-            return {
-                ...state,
-                stepNumber: action.step,
-                xIsNext: (action.step % 2) === 0,
-            };
-
-        case RESET_GAME: {
-            return {...initialState};
-        }
-        case NEW_TURN: {
-            return {
-                ...state,
-                history: [{
-                    squares: Array(9).fill(null),
-                }],
-                stepNumber: 0,
-                xIsNext: action.piece === 'X',
-            }
-        }
-
-        default:
-            throw new Error(`Unhandled action type: ${action.type}`);
-    }
-};
 
 const Game = () => {
     const classes = useStyles();
 
     const [state, dispatch] = useReducer(gameReducer, initialState);
 
-    const {history, stepNumber, turn, score, xIsNext, gameMode, gamePiece} = state;
+    const {history, stepNumber, p1IsNext, score, gameMode, gameSelectedPlayer, currentPlayer} = state;
 
     const currentBoard = history[stepNumber];
 
     const winner = calculateWinner(currentBoard.squares);
 
-    const setPlayer = (mode) => {
-        dispatch({type: SET_PLAYER, mode});
+    const setMode = (mode) => {
+        dispatch({type: types.SET_MODE, mode});
     };
 
-    const setPiece = (piece) => {
-        dispatch({type: SET_PIECE, piece});
+    const setPlayer = (player) => {
+        dispatch({type: types.SET_PLAYER, player});
     };
 
-    const clickCell = index => {
+    const clickCell = (index) => {
+        if (gameMode === 'playerVersusBot' && !p1IsNext) {
+            return;
+        }
+        // Apply player move to square i
+        makeMove(index);
+    };
 
+    const aiMove = () => {
+        const squares = [...currentBoard.squares];
+        const bestSquare = findBestSquare(squares, currentPlayer === 'X' ? 'X' : 'O');
+        if (bestSquare !== -1) {
+            makeMove(bestSquare);
+        }
+    };
+
+    const makeMove = (index) => {
         const newSquares = [...currentBoard.squares];
         // Determine if the cell was clicked or the game is over
         if (winner || newSquares[index]) {
             return;
         }
-
         // Determine whose move is X ? 0
-        newSquares[index] = xIsNext ? 'X' : 'O';
+        newSquares[index] = currentPlayer;
 
         // Update state
-        dispatch({
-            type: SET_CELL,
+        const nextState = {
+            type: types.SET_CELL,
             newBoardState: {
                 squares: newSquares,
-                clickedSquare: [Math.floor((index % 3) + 1), Math.floor((index / 3) + 1)]
+                clickedSquare: [Math.floor((index % 3) + 1), Math.floor((index / 3) + 1)],
+                currentPlayer: currentPlayer
             }
-        });
+        };
+
+        dispatch(nextState);
     };
 
+    //moving through the history of moves
     const jumpTo = (step) => {
-        dispatch({type: JUMP_TO, step});
+        dispatch({type: types.JUMP_TO, step});
     };
 
+    //control game
     const resetGame = () => dispatch({type: 'RESET_GAME'});
     const newTurn = () => dispatch({type: 'NEW_TURN'});
 
+    //render the history of moves
     const moves = history.map((step, move) => {
-        const active = {
-            fontWeight: 'bold'
-        };
-
-        const inactive = {
-            fontWeight: 'normal'
-        };
         const clickedSquare = step.clickedSquare;
+        const player = step.currentPlayer;
         const desc = move ?
-            `Move #  ${move} - (${clickedSquare[0]},${clickedSquare[1]})` :
+            `Move '${player}' #  ${move} - (${clickedSquare[0]},${clickedSquare[1]})` :
             `Game start`;
+
         return (
             <li key={move} >
-                <a
+                <Link
                     href="#"
-                    className={classes.historyLinkActive}
-                    style={state.stepNumber === move ? active : inactive}
+                    className={state.stepNumber === move ? classes.historyLinkActive : null}
                     onClick={() => jumpTo(move)} >
                     {desc}
-                </a >
+                </Link >
             </li >
         );
     });
 
+    //status game
     let status;
     if (winner) status = `Winner: ${winner.winner}`;
     else if (currentBoard.squares.every(Boolean)) status = 'Even';
-    else status = `Next player: ${xIsNext ? 'X' : 'O'}`;
+    else status = `Next player: ${currentPlayer === 'X' ? 'X' : 'O'}`;
 
     return (
         <div className={classes.container} >
-            <h1 >The <span className={classes.gameName} >Tic-Tac-Toe</span > Game</h1 >
-            {(gameMode !== '' && gamePiece !== '') ?
+            <Box component="h1" >The <span className={classes.gameName} >Tic-Tac-Toe</span > Game</Box >
+            {(gameMode !== '' && gameSelectedPlayer !== '') ?
                 <>
                     <Info score={score} status={status} />
                     <Board
                         squares={currentBoard.squares}
                         winner={winner && winner.winningSquares}
+                        aiMove={(currentPlayer !== '' && gameMode === 'playerVersusBot' && !p1IsNext) ?
+                            aiMove
+                            : null}
                         clickCell={clickCell}
                     />
                     <Controllers controllers={{resetGame, newTurn}} />
-                    <div className={classes.historyContainer}>
-                        <h3 >History</h3 >
-                        <ol >{moves}</ol >
-                    </div >
+                    <History moves={moves} />
                 </>
                 :
                 <GameSetting
                     mode={gameMode}
                     setPlayer={setPlayer}
-                    setPiece={setPiece}
+                    setMode={setMode}
                     resetGame={resetGame}
                 />
             }
