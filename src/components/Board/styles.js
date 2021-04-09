@@ -3,10 +3,11 @@ import { pxToRem } from '../../utils/pxToRem';
 
 const useStyles = makeStyles({
     board: {
-        width: pxToRem(150),
-        height: pxToRem(150),
+        width: pxToRem(210),
+        height: pxToRem(210),
         display: 'flex',
         flexWrap: 'wrap',
+        marginTop: pxToRem(6)
     }
 });
 

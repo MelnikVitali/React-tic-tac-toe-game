@@ -16,7 +16,7 @@ const Info = ({score, status}) => {
                 <p className={classes.maxWin} >{maxWin}</p >
                 <p >Player O: <span  className={classes.score}>{score.O}</span ></p >
             </div >
-            <p className={classes.status}><span className={classes.statusResult}>{status}</span></p >
+            <p><span className={classes.statusResult}>{status}</span></p >
         </>
     );
 };

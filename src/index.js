@@ -9,12 +9,10 @@ import theme from './theme';
 import App from './App';
 
 ReactDOM.render(
-    <React.StrictMode >
-        <ThemeProvider theme={theme} >
+         <ThemeProvider theme={theme}>
             <CssBaseline />
             <App />
-        </ThemeProvider >
-    </React.StrictMode >,
+        </ThemeProvider >,
     document.getElementById('root')
 );
 

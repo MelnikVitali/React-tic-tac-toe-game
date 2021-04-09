@@ -3,28 +3,22 @@ import { pxToRem } from '../../utils/pxToRem';
 const {makeStyles} = require('@material-ui/core');
 
 const useStyles = makeStyles(theme => ({
-    container: {
+    historyContainer:{
         display:'flex',
         flexDirection: 'column',
         alignItems:'center',
-        textAlign:'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        textAlign:'left',
+        marginBottom:pxToRem(50),
+        color:theme.palette.primary.main
     },
-    gameName: {
+    title: {
         border: theme.borderGameName,
-        padding: `${pxToRem(2)} ${pxToRem(6)}`,
+        padding: `${pxToRem(2)} ${pxToRem(10)}`,
         borderRadius: pxToRem(6),
         color: theme.colorGameName,
         letterSpacing:pxToRem(3),
-        '&:hover': {
-            color: theme.colorWhite,
-            backgroundColor: theme.colorGameName,
-            borderStyle: 'solid'
-        }
     },
-    historyLinkActive:{
-        fontWeight: 800
-    }
 }));
 
 export default useStyles;
