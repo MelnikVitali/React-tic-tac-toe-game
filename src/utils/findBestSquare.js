@@ -23,7 +23,7 @@ export const findBestSquare = (squares, player) => {
         // If opponent wins, score is -1
         if (winner && winner.winner === opponent) return {square: -1, score: -1};
 
-        // If Tie, score is 0
+        // If Even, score is 0
         if (isBoardFilled(squares)) return {square: -1, score: 0};
 
         // Initialize 'best'. If isMax, we want to maximize score, and minimize otherwise.

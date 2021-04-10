@@ -1,32 +1,33 @@
 import React from 'react';
 
 import { Button } from '@material-ui/core';
+
 import useStyles from './styles';
 
 const Controllers = ({controllers: c}) => {
-    const classes= useStyles();
+    const classes = useStyles();
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} >
             <Button
                 onClick={c.resetGame}
-                size='large'
+                size="large"
                 variant="contained"
-                color='primary'
+                color="primary"
                 className={classes.btn}
             >
                 ↻ Reset game
-            </Button>
+            </Button >
             <Button
                 onClick={c.newTurn}
-                size='large'
+                size="large"
                 variant="contained"
-                color='primary'
+                color="primary"
                 className={classes.btn}
             >
                 ⇝ New turn
-            </Button>
-        </div>
+            </Button >
+        </div >
     );
 };
 

@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react';
-import Square from '../Square';
+import React, { memo, useEffect } from 'react';
+
 import { Paper } from '@material-ui/core';
+
+import Square from '../Square';
 
 import useStyles from './styles';
 
-const Board = ({squares, clickCell, winner, aiMove}) => {
+const Board = memo(({squares, clickCell, winner, aiMove}) => {
     const classes = useStyles();
-
 
     useEffect(() => {
         if (aiMove && !winner) {
@@ -29,6 +30,6 @@ const Board = ({squares, clickCell, winner, aiMove}) => {
             }
         </Paper >
     );
-};
+});
 
 export default Board;

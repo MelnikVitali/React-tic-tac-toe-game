@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useReducer } from 'react';
 
-import { Box, Link } from '@material-ui/core';
+import { Box, Button, Link } from '@material-ui/core';
 
 import Board from '../Board';
 
@@ -16,7 +16,6 @@ import { calculateWinner } from '../../utils/calculateWinner';
 import { findBestSquare } from '../../utils/findBestSquare';
 
 import useStyles from './styles';
-
 
 const Game = () => {
     const classes = useStyles();
@@ -94,12 +93,14 @@ const Game = () => {
 
         return (
             <li key={move} >
-                <Link
-                    href="#"
-                    className={state.stepNumber === move ? classes.historyLinkActive : null}
-                    onClick={() => jumpTo(move)} >
-                    {desc}
-                </Link >
+                <Button color="primary" >
+                    <Link
+                        href="#"
+                        className={state.stepNumber === move ? classes.historyLinkActive : null}
+                        onClick={() => jumpTo(move)} >
+                        {desc}
+                    </Link >
+                </Button >
             </li >
         );
     });

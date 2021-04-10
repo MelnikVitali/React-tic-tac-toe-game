@@ -9,7 +9,7 @@ const Square = memo(({value, clickCell, winningSquare}) => {
 
     return (
         <Button
-            variant='contained'
+            variant="contained"
             className={[
                 classes.square,
                 winningSquare ? classes.winningSquare : null

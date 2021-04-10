@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
         color: `${theme.blackColor}`,
         fontWeight: '800',
         border: `${theme.borderSquare} `,
-        borderRadius: '0 '
+        borderRadius: 0
     },
     winningSquare: {
         color: `${theme.palette.secondary.main}`,

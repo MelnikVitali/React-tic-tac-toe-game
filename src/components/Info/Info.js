@@ -1,4 +1,5 @@
 import React from 'react';
+
 import useStyles from './styles';
 
 const Info = ({score, status}) => {
@@ -12,11 +13,11 @@ const Info = ({score, status}) => {
     return (
         <>
             <div className={classes.result} >
-                <p >Player X: <span className={classes.score}>{score.X}</span ></p >
+                <p >Player X: <span className={classes.score} >{score.X}</span ></p >
                 <p className={classes.maxWin} >{maxWin}</p >
-                <p >Player O: <span  className={classes.score}>{score.O}</span ></p >
+                <p >Player O: <span className={classes.score} >{score.O}</span ></p >
             </div >
-            <p><span className={classes.statusResult}>{status}</span></p >
+            <p ><span className={classes.statusResult} >{status}</span ></p >
         </>
     );
 };
