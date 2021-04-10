@@ -5,8 +5,6 @@ View the live game at [React TicTacToe Game](https://607181f06a4c560b33365f69--l
 
 Author: Vitalii Melnyk
 
-A Tic-Tac-Toe game with React and an unbeatable AI.
-
 ## Technology Stack
 
 - React with React Hooks (useReducer, useEffect)
