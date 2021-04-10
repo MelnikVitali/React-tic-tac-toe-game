@@ -1,13 +1,6 @@
 import { calculateWinner } from '../utils/calculateWinner';
 
-const types = {
-    SET_MODE: 'SET_MODE',
-    SET_PLAYER: 'SET_PLAYER',
-    SET_CELL: 'SET_CELL',
-    JUMP_TO: 'JUMP_TO',
-    RESET_GAME: 'RESET_GAME',
-    NEW_TURN: 'NEW_TURN',
-};
+import { types } from './types';
 
 const initialState = {
     history: [{
@@ -63,9 +56,9 @@ const gameReducer = (state, action) => {
 
             return {
                 ...state,
-                stepNumber: action.step,
-                p1IsNext: (action.step % 2) === 0,
-                currentPlayer: (action.step % 2) === 0 ? player : opponent
+                stepNumber: action.move,
+                p1IsNext: (action.move % 2) === 0,
+                currentPlayer: (action.move % 2) === 0 ? player : opponent
             };
 
         case types.RESET_GAME:
@@ -87,4 +80,4 @@ const gameReducer = (state, action) => {
     }
 };
 
-export { types, gameReducer, initialState };
+export { gameReducer, initialState };

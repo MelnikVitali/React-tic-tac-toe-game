@@ -6,9 +6,13 @@ const Info = ({score, status}) => {
     const classes = useStyles();
 
     let maxWin;
-    if (score.X > score.O) maxWin = '👈';
-    else if (score.O > score.X) maxWin = '👉';
-    else maxWin = '🤟';
+    if (score.X > score.O) {
+        maxWin = '👈';
+    } else if (score.O > score.X) {
+        maxWin = '👉';
+    } else {
+        maxWin = '🤟';
+    }
 
     return (
         <>

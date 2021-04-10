@@ -1,12 +1,7 @@
 import { calculateWinner } from './calculateWinner';
 
 const isBoardFilled = (squares) => {
-    for (let i = 0; i < squares.length; i++) {
-        if (squares[i] === null) {
-            return false;
-        }
-    }
-    return true;
+    return !squares.some((elem) => elem === null);
 };
 
 export const findBestSquare = (squares, player) => {
@@ -18,13 +13,19 @@ export const findBestSquare = (squares, player) => {
         const winner = calculateWinner(squares);
 
         // If player wins, score is +1
-        if (winner && winner.winner === player) return {square: -1, score: 1};
+        if (winner && winner.winner === player) {
+            return {square: -1, score: 1};
+        }
 
         // If opponent wins, score is -1
-        if (winner && winner.winner === opponent) return {square: -1, score: -1};
+        if (winner && winner.winner === opponent) {
+            return {square: -1, score: -1};
+        }
 
         // If Even, score is 0
-        if (isBoardFilled(squares)) return {square: -1, score: 0};
+        if (isBoardFilled(squares)) {
+            return {square: -1, score: 0};
+        }
 
         // Initialize 'best'. If isMax, we want to maximize score, and minimize otherwise.
         const best = {square: -1, score: isMax ? -1000 : 1000};

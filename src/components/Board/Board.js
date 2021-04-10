@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useRef } from 'react';
 
 import { Paper } from '@material-ui/core';
 
@@ -8,11 +8,18 @@ import useStyles from './styles';
 
 const Board = memo(({squares, clickCell, winner, aiMove}) => {
     const classes = useStyles();
+    const timeoutAiMove = 500;
+
+    const timer = useRef(null);
 
     useEffect(() => {
         if (aiMove && !winner) {
-            setTimeout(() => aiMove(), 500);
+            timer.current = setTimeout(() => aiMove(), timeoutAiMove);
         }
+
+        return () => {
+            clearTimeout(timer.current);
+        };
     }, [aiMove, winner]);
 
     return (
@@ -23,7 +30,7 @@ const Board = memo(({squares, clickCell, winner, aiMove}) => {
                     <Square
                         key={i}
                         value={square}
-                        winningSquare={(Boolean(winner && winner.includes(i)))}
+                        winningSquare={winner && winner.includes(i)}
                         clickCell={() => clickCell(i)}
                     />
                 ))

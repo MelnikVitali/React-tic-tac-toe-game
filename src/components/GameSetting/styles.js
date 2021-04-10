@@ -1,6 +1,6 @@
-import { pxToRem } from '../../utils/pxToRem';
+import { makeStyles } from '@material-ui/core/styles';
 
-const {makeStyles} = require('@material-ui/core/styles');
+import { pxToRem } from '../../utils/pxToRem';
 
 const useStyles = makeStyles(theme => ({
     title: {
@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
         flexWrap: 'wrap'
     },
     btn: {
-        fontWeight: '600 !important',
+        fontWeight: '600',
         marginBottom: `${pxToRem(3)}`,
     },
     btnPiece: {

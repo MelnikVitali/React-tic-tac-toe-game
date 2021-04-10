@@ -10,10 +10,12 @@ import GameSetting from '../GameSetting';
 import Info from '../Info';
 import History from '../History';
 
-import { gameReducer, initialState, types } from '../../reducers/gameReducer';
+import { gameReducer, initialState } from '../../reducers/gameReducer';
 
 import { calculateWinner } from '../../utils/calculateWinner';
 import { findBestSquare } from '../../utils/findBestSquare';
+
+import { types } from '../../reducers/types';
 
 import useStyles from './styles';
 
@@ -75,8 +77,8 @@ const Game = () => {
     };
 
     //moving through the history of moves
-    const jumpTo = (step) => {
-        dispatch({type: types.JUMP_TO, step});
+    const jumpTo = (move) => {
+        dispatch({type: types.JUMP_TO, move});
     };
 
     //control game
@@ -107,9 +109,13 @@ const Game = () => {
 
     //status game
     let status;
-    if (winner) status = `Winner: ${winner.winner}`;
-    else if (currentBoard.squares.every(Boolean)) status = 'Even';
-    else status = `Next player: ${currentPlayer === 'X' ? 'X' : 'O'}`;
+    if (winner) {
+        status = `Winner: ${winner.winner}`;
+    }    else if (currentBoard.squares.every(Boolean)) {
+        status = 'Even';
+    }    else {
+        status = `Next player: ${currentPlayer === 'X' ? 'X' : 'O'}`;
+    }
 
     return (
         <div className={classes.container} >
