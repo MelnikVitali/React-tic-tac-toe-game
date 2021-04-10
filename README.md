@@ -1,24 +1,27 @@
 # React-tic-tac-toe-game
+A Tic-Tac-Toe game with React and an unbeatable AI.
 
 View the live game at [React TicTacToe Game](https://607181f06a4c560b33365f69--loving-aryabhata-0f8100.netlify.app/).  
 
-
 Author: Vitalii Melnyk
+
+A Tic-Tac-Toe game with React and an unbeatable AI.
 
 ## Technology Stack
 
-- React with React Hooks and Redux with Redux Hooks
+- React with React Hooks (useReducer, useEffect)
 
 - React styles & libraries: Material-UI
+
+- Minimax Algorithm
 -------------------------------------------
 ## Technical Requirements
-###Язык: React
-###Задача №1
-Создать игру крестики нолики, где игроки могут играть за одним компьютером по очереди.
-Желательно в игре иметь: индикатор хода, количество ходов, количество побед игрок 1 или игрок 2, возможность выбора для игроков играть за крестики или за нолики.
-###Задача №2* 
-Доработать игру таким образом, чтобы игрок мог играть против AI игрока. AI игрок должен иметь как минимум одну стратегию победы, в остальном его ходы могут быть случайными
-
+### Язык: React
+### Задача №1
+* Создать игру крестики нолики, где игроки могут играть за одним компьютером по очереди.
+* Желательно в игре иметь: индикатор хода, количество ходов, количество побед игрок 1 или игрок 2, возможность выбора для игроков играть за крестики или за нолики.
+### Задача №2* 
+* Доработать игру таким образом, чтобы игрок мог играть против AI игрока. 
 ____________________________________________
 # Getting Started with Create React App
 
