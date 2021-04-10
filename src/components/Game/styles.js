@@ -1,13 +1,13 @@
-import { pxToRem } from '../../utils/pxToRem';
+import { makeStyles } from '@material-ui/core/styles';
 
-const {makeStyles} = require('@material-ui/core');
+import { pxToRem } from '../../utils/pxToRem';
 
 const useStyles = makeStyles(theme => ({
     container: {
-        display:'flex',
+        display: 'flex',
         flexDirection: 'column',
-        alignItems:'center',
-        textAlign:'center',
+        alignItems: 'center',
+        textAlign: 'center',
         justifyContent: 'center'
     },
     gameName: {
@@ -15,14 +15,14 @@ const useStyles = makeStyles(theme => ({
         padding: `${pxToRem(2)} ${pxToRem(6)}`,
         borderRadius: pxToRem(6),
         color: theme.colorGameName,
-        letterSpacing:pxToRem(3),
+        letterSpacing: pxToRem(3),
         '&:hover': {
             color: theme.colorWhite,
             backgroundColor: theme.colorGameName,
             borderStyle: 'solid'
         }
     },
-    historyLinkActive:{
+    historyLinkActive: {
         fontWeight: 800
     }
 }));

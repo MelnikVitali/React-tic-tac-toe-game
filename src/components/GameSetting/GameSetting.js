@@ -70,12 +70,10 @@ const GameSetting = ({mode, setPlayer, setMode, resetGame}) => {
                         className={classes.btnBack}
                         onClick={resetGame}
                     >
-
                         ⇜ Back
                     </Button >
                 </div >
             </Dialog >
-
     );
 };
 

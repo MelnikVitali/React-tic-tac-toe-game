@@ -9,7 +9,6 @@ const types = {
     NEW_TURN: 'NEW_TURN',
 };
 
-
 const initialState = {
     history: [{
         squares: Array(9).fill(null),
@@ -89,4 +88,3 @@ const gameReducer = (state, action) => {
 };
 
 export { types, gameReducer, initialState };
-
