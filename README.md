@@ -22,7 +22,7 @@ A Tic-Tac-Toe game with React and an unbeatable AI.
 * Желательно в игре иметь: индикатор хода, количество ходов, количество побед игрок 1 или игрок 2, возможность выбора для игроков играть за крестики или за нолики.
 ### Задача №2* 
 * Доработать игру таким образом, чтобы игрок мог играть против AI игрока. 
-____________________________________________
+-------------------------------------------
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
